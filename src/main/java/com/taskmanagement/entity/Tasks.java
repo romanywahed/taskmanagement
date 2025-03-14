@@ -5,7 +5,6 @@ import com.taskmanagement.enums.TaskStatus;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -14,7 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Task {
+public class Tasks {
 
     @Id
     @GeneratedValue
@@ -31,7 +30,7 @@ public class Task {
     
     @ManyToOne
     @JoinColumn(name = "created_by", nullable = false)
-    private User createdBy;
+    private Users createdBy;
 
     @PrePersist
     public void prePersist() {
