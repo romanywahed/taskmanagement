@@ -1,11 +1,13 @@
 package com.taskmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.taskmanagement.enums.Priority;
 import com.taskmanagement.enums.TaskStatus;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.UUID;
+import java.time.LocalDate;
+
 
 @Entity
 @Getter
@@ -16,26 +18,21 @@ import java.util.UUID;
 public class Tasks {
 
     @Id
-    @GeneratedValue
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String title;
     private String description;
-    
+    private LocalDate dueDate;
+
     @Enumerated(EnumType.STRING)
     private TaskStatus status;
     
     @Enumerated(EnumType.STRING)
     private Priority priority;
-    
-    @ManyToOne
-    @JoinColumn(name = "created_by", nullable = false)
-    private Users createdBy;
 
-    @PrePersist
-    public void prePersist() {
-        if (id == null) {
-            id = UUID.randomUUID();
-        }
-    }
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "created_by", referencedColumnName = "id")
+    private Users createdBy;
 }

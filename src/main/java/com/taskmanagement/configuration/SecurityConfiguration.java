@@ -32,7 +32,7 @@ public class SecurityConfiguration {
         httpSecurity.csrf().disable()
                 .authorizeHttpRequests()
                 .antMatchers("/api/v1/auth/**").permitAll() // Allow public access to auth endpoints
-                .antMatchers("/api/tasks/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN") // Require authentication for tasks
+                .antMatchers("/api/v1/tasks/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN") // Require authentication for tasks
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()

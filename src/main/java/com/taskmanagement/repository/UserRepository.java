@@ -7,9 +7,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
-import java.util.UUID;
 @Repository
-public interface UserRepository extends JpaRepository<Users, UUID> {
-    @Query("SELECT u FROM Users u JOIN FETCH u.roles WHERE u.username = :username")
+public interface UserRepository extends JpaRepository<Users, Long> {
+    @Query("SELECT user FROM Users user JOIN FETCH user.roles WHERE user.username = :username")
     Optional<Users> findByUsername(@Param("username") String username);
+    @Query("SELECT user FROM Users user  WHERE user.username = :username")
+    Optional<Users> findUserByUsername(@Param("username") String username);
+    @Query("SELECT u.id FROM Users u WHERE u.username = :username")
+    Optional<Long> findIdByUsername(@Param("username") String username);
+
 }
