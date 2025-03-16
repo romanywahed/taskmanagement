@@ -9,6 +9,7 @@ A Spring Boot-based Task Management System that allows users to create, update, 
   - View tasks
   - Update tasks
   - Delete tasks
+  - filters
   
 - **Authentication**:
   - JWT-based authentication for secure API access.
