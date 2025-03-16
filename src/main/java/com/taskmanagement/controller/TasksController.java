@@ -1,7 +1,6 @@
 package com.taskmanagement.controller;
 
 import com.taskmanagement.entity.Tasks;
-import com.taskmanagement.entity.Users;
 import com.taskmanagement.enums.Priority;
 import com.taskmanagement.enums.TaskStatus;
 import com.taskmanagement.service.TaskService;

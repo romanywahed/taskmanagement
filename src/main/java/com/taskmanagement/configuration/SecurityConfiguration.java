@@ -6,6 +6,7 @@ import com.taskmanagement.security.JwtUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -31,9 +32,16 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         httpSecurity.csrf().disable()
                 .authorizeHttpRequests()
-                .antMatchers("/api/v1/auth/**").permitAll() // Allow public access to auth endpoints
+                .antMatchers("/api/v1/**").permitAll()
                 .antMatchers("/api/v1/tasks/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN") // Require authentication for tasks
+                .antMatchers("/actuator/**").permitAll()
                 .anyRequest().authenticated()
+                .and()
+                .exceptionHandling().authenticationEntryPoint((request, response, authException) -> {
+                    response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                    response.setContentType("application/json");
+                    response.getWriter().write("{\"message\": \"Unauthorized\"}");
+                })
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
