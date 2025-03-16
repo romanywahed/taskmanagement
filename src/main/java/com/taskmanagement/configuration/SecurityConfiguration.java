@@ -35,6 +35,7 @@ public class SecurityConfiguration {
                 .antMatchers("/api/v1/**").permitAll()
                 .antMatchers("/api/v1/tasks/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN") // Require authentication for tasks
                 .antMatchers("/actuator/**").permitAll()
+                .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint((request, response, authException) -> {
