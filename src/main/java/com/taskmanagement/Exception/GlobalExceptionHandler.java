@@ -1,5 +1,6 @@
 package com.taskmanagement.Exception;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -13,14 +14,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<Map<String, Object>> handleGenericException(Exception ex) {
-        logger.error("Unexpected error occurred: {}", ex.getMessage(), ex);
+        log.error("Unexpected error occurred: {}", ex.getMessage(), ex);
 
         Map<String, Object> errorResponse = new HashMap<>();
         errorResponse.put("timestamp", System.currentTimeMillis());
@@ -34,7 +35,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Map<String, Object>> handleValidationException(MethodArgumentNotValidException ex) {
-        logger.warn("Validation error: {}", ex.getMessage());
+        log.warn("Validation error: {}", ex.getMessage());
 
         Map<String, Object> errorResponse = new HashMap<>();
         errorResponse.put("timestamp", System.currentTimeMillis());

@@ -16,7 +16,7 @@ public class LoggingAspect {
     private static final Logger logger = LoggerFactory.getLogger(LoggingAspect.class);
 
     // Define pointcuts (Log all public methods in services and controllers)
-    @Pointcut("execution(* com.taskmanagement.service..*(..)) || execution(* com.taskmanagement.controller..*(..)) ")
+    @Pointcut("execution(* com.taskmanagement.service.implementation..*(..)) || execution(* com.taskmanagement.controller..*(..)) ")
     public void applicationMethods() {}
 
     // Around advice to log method execution details

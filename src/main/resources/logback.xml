@@ -146,7 +146,7 @@
 	</appender>
  
 
-	<logger name="com.taskManagement" level="all" additivity="false">
+	<logger name="com.taskmanagement" level="all" additivity="false">
 		<appender-ref ref="FILE-ERROR" />
 		<appender-ref ref="FILE-INFO" />
 		<appender-ref ref="FILE-DEBUG" />
